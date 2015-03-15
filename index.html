@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.528/js/kendo.all.min.js"></script>
+    <link href="http://cdn.kendostatic.com/2014.1.528/styles/kendo.common.min.css" rel="stylesheet"/>
+    <link href="http://cdn.kendostatic.com/2014.1.528/styles/kendo.rtl.min.css" rel="stylesheet"/>
+    <link href="http://cdn.kendostatic.com/2014.1.528/styles/kendo.silver.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="Yahoo.js"></script>
+    <style type="text/css">
+        .red {
+            background-color: #D10602;
+        }
+
+        .green {
+            background-color: #48A702;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+    var portfolioProvider;
+	var followProvider;
+    var ndaq100Provider;
+	var columns = [{
+				field: "ticker",
+				title: "Ticker"
+			}, {
+				field: "lastClose",
+				title: "Last Close"
+			}, {
+				field: "spread25",
+				title: "Spread from 25 Days MA",
+				type: "number"
+			}, {
+				field: "twentyFive",
+				title: "25 Days MA displaced by 5"
+			}, {
+				field: "spread50",
+				title: "Spread from 50 Days MA",
+				type: "number"
+			}, {
+				field: "fifty",
+				title: "50 Days MA"
+		}];
+	var doneCallback = function(name, id, provider) {
+		provider.calculate();
+		$(id).kendoGrid({
+			dataSource: {
+				data: Technicals.result[name],
+				change: function() {
+					
+				}
+			},
+			height: 550,
+			sortable: true,
+			columns: window.columns,
+			dataBound: function(e) {
+				var data = e.sender.dataSource.view();
+				var $grid = $(id);
+	
+				for (var i = 0; i < data.length; i++) {
+					$grid.find("tr[data-uid='" + data[i].uid + "']")
+						.children()
+						.eq(0)
+						.toggleClass(data[i].above25 ? "green" : "red");
+				}
+			}
+		});
+	}
+
+    window.tickers  = {};
+	window.tickers.portfolio = "MU QIHU TSLA SNDK IRBT TWTR".split(/\s/);;
+    window.tickers.follow = "INTC AMD SSYS MSFT	TSLA	QIHU	ILMN	BIDU	SCTY	NOK	BABA	SPWR	IRBT	YNDX	RMBS	CSIQ	PRGS	NXPI	SWKS	MU	EA	GOOGL	BBRY	LNKD	AVGO	IRDM	NDX	QRVO	GILD	AKAM	SNDK	CELG	TRIP	SUNE	YHOO	LOGM	ADBE	DDD	FSLR	BRCM	FB	YELP	TWTR	AAPL	AMZN	NFLX	VIPS	GPRO".split(/\s/);
+    window.tickers.ndaq100 = "AAPL".split(/\s/);
+ 
+    $(document).ready(function() {
+        $("#stocks").kendoTabStrip();
+
+		portfolioProvider = new TechnicalsProvider({
+			name: "portfolio",
+			tickers: window.tickers.portfolio,
+			done: function() {
+				doneCallback("portfolio", "#portfolio", portfolioProvider);
+			}
+		});
+		portfolioProvider.request();
+		
+        followProvider = new TechnicalsProvider({
+            name: "follow",
+            tickers: window.tickers.follow,
+            done: function() {
+                doneCallback("follow", "#follow", followProvider);
+            }
+        });
+        followProvider.request();
+		
+        ndaq100Provider = new TechnicalsProvider({
+            name: "ndaq100",
+            tickers: window.tickers.ndaq100,
+            done: function() {
+				doneCallback("ndaq100", "#ndaq100Portfolio", ndaq100Provider);
+			}
+        });
+        ndaq100Provider.request();
+    });
+</script>
+
+<div id="stocks">
+    <ul>
+        <li class="k-state-active">
+            My Portfolio
+        </li>
+		 <li>
+            My Follows
+        </li>
+        <li>
+            NDAQ 100 Technology
+        </li>
+        <li>
+            NDAQ Q50
+        </li>
+    </ul>
+	<div>
+		<div id="portfolio"></div>
+	</div>
+    <div>
+        <div id="follow"></div>
+    </div>
+    <div>
+        <div id="ndaq100Portfolio"></div>
+    </div>
+    <div>
+		<div id="ndaqQ50"></div>
+    </div>
+
+</div>
+
+</body>
+</html>
