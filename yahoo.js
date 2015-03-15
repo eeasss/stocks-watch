@@ -8,7 +8,7 @@
 	/*global $, Storage */
 
 	var baseUrl = "https://query.yahooapis.com/v1/public/yql";
-    var offset = 8 + 8 + 8; // 8 saturdays, 8 sundays, assume 8 public holidays
+    var offset = 8 + 8 + 8  ; // 8 saturdays, 8 sundays, assume 8 public holidays
     var params = {
         q: 'select * from yahoo.finance.historicaldata where symbol = "#ticker#" and startDate = "#start#" and endDate = "#end#"',
         format: "json",
@@ -23,7 +23,7 @@
             d.setDate(d.getDate() + offset);
         }
 
-        return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        return d.toISOString().split("T")[0];
     }
 
     function queryOptions(ticker) {
@@ -118,17 +118,23 @@
 		},
         average: {
             fifty: function (d) {
-                if (!d || d.length === 0) {
+                var l = d.length;
+
+                if (!d || l === 0) {
                     return 0;
                 }
-
+				
+				if (l < 50) {
+					console.log("Warning! Data length is less than 50. Length is " + l)
+				}
+        
                 var sum = 0;
 
                 for (var i = 0; i < d.length; i++) {
                     if (i == 50) {
                         break;
                     }
-
+				
                     sum += parseFloat(d[i].Close);
                 }
 
