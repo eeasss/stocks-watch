@@ -1,0 +1,28 @@
+{
+  "name": "stocks-watch",
+  "version": "1.0.0",
+  "description": "Sample project for fetching yahoo finance data",
+  "main": "app.js",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "chai": "^2.2.0",
+    "grunt": "^0.4.5",
+    "karma": "^0.12.31"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eeasss/stocks-watch.git"
+  },
+  "author": "Genady Sergeev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eeasss/stocks-watch/issues"
+  },
+  "homepage": "https://github.com/eeasss/stocks-watch"
+}

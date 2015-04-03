@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     jshint {
-      myFiles ["*.js"]
+      myFiles: ["*.js"]
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
