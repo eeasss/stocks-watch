@@ -1,60 +1,89 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+var fs = require('fs');
+var http = require('https');
+var querystring = require('querystring');
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var host = 'query.yahooapis.com/v1/public/yql';
+var offset = 8 + 8 + 8  ; // 8 saturdays, 8 sundays, assume 8 public holidays
+var params = {
+    q: 'select * from yahoo.finance.historicaldata where symbol = "#ticker#" and startDate = "#start#" and endDate = "#end#"',
+    format: 'json',
+    env: 'store://datatables.org/alltableswithkeys',
+};
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.get('/', function (req, res) {
+  res.send('Hello World!!!');
 });
 
-// error handlers
+app.get('/api/tickers', function (req, res) {
+    var obj;
+    fs.readFile('assets.json', 'utf8', function (err, data) {
+        if (err) {
+            throw err;
+        }
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+        var options = queryOptions('VYM');
+        params.q = params.q.replace("#ticker#", options.ticker).replace("#start#", options.start).replace("#end#", options.end);
+        var params_data = querystring.stringify(params);
+
+        var res = http.get({ host: host, path: params_data }, function(res) { 
+            res.on('end', function() {
+                res.send(options);
+            });
+
+            res.on('error', function(e) {
+                res.send(e);
+            });
+        });
     });
-  });
+});
+
+app.get('/api/test', function (req, res) {
+    res.send({hello: 'genady'});
+});
+
+var server = app.listen(3000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Example app listening at http://%s:%s', host, port);
+});
+
+var Request = function (options) {
+    this.baseUrl = options.baseUrl;
+    this.ticker = options.ticker;
+    this.start = options.start;
+    this.end = options.end;
+    this.params = this.initialize(options.params);
+};
+
+Request.prototype = {
+    get: function (success, error) {
+        var req = http.request({host: this.baseUrl}, success);
+        req.on('error', error);
+    },
+    initialize: function (options) {
+        options.q = options.q.replace("#ticker#", this.ticker)
+                             .replace("#start#", this.start)
+                             .replace("#end#", this.end);
+        return options;
+    }
+};
+
+function date(offset) {
+    var d = new Date();
+    if (offset) {
+        d.setDate(d.getDate() + offset);
+    }
+
+    return d.toISOString().split("T")[0];
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-module.exports = app;
+function queryOptions(ticker) {
+    return {
+        ticker: ticker,
+        start: date(-50 - offset),
+        end: date()
+    };
+}
