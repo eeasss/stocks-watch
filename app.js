@@ -1,10 +1,11 @@
 var express = require('express');
 var fs = require('fs');
-var http = require('https');
+var https = require('https');
 var querystring = require('querystring');
+require('dns-notfound-what');
 var app = express();
 
-var host = 'query.yahooapis.com/v1/public/yql';
+var host = 'https://query.yahooapis.com/v1/public/yql';
 var offset = 8 + 8 + 8  ; // 8 saturdays, 8 sundays, assume 8 public holidays
 var params = {
     q: 'select * from yahoo.finance.historicaldata where symbol = "#ticker#" and startDate = "#start#" and endDate = "#end#"',
@@ -25,16 +26,23 @@ app.get('/api/tickers', function (req, res) {
 
         var options = queryOptions('VYM');
         params.q = params.q.replace("#ticker#", options.ticker).replace("#start#", options.start).replace("#end#", options.end);
-        var params_data = querystring.stringify(params);
-
-        var res = http.get({ host: host, path: params_data }, function(res) { 
-            res.on('end', function() {
-                res.send(options);
+        var params_data = '?' + querystring.stringify(params);
+        https.get(host + params_data, function(resp) { 
+            var body = "";
+ 
+            resp.on('data', function(d) {
+                body += d;
+                console.log('data received');
+            });
+            
+            resp.on('end', function(d) {
+               res.send(body);
             });
 
-            res.on('error', function(e) {
+            resp.on('error', function(e) {
+                console.log('error');
                 res.send(e);
-            });
+            })
         });
     });
 });
@@ -50,27 +58,6 @@ var server = app.listen(3000, function () {
     console.log('Example app listening at http://%s:%s', host, port);
 });
 
-var Request = function (options) {
-    this.baseUrl = options.baseUrl;
-    this.ticker = options.ticker;
-    this.start = options.start;
-    this.end = options.end;
-    this.params = this.initialize(options.params);
-};
-
-Request.prototype = {
-    get: function (success, error) {
-        var req = http.request({host: this.baseUrl}, success);
-        req.on('error', error);
-    },
-    initialize: function (options) {
-        options.q = options.q.replace("#ticker#", this.ticker)
-                             .replace("#start#", this.start)
-                             .replace("#end#", this.end);
-        return options;
-    }
-};
-
 function date(offset) {
     var d = new Date();
     if (offset) {
@@ -83,7 +70,7 @@ function date(offset) {
 function queryOptions(ticker) {
     return {
         ticker: ticker,
-        start: date(-50 - offset),
+        start: date(-1 - offset),
         end: date()
     };
 }
