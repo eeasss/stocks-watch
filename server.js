@@ -15,10 +15,10 @@ app.use(express.static('app/public'));
 
 var host = 'https://query.yahooapis.com/v1/public/yql';
 var offset = 8 + 8 + 8  ; // 8 saturdays, 8 sundays, assume 8 public holidays
-var params = {
-    q: 'select * from yahoo.finance.quote where symbol in ("#ticker#")',
-    format: 'json',
-    env: 'store://datatables.org/alltableswithkeys',
+var params = function() {
+    this.q = 'select * from yahoo.finance.quote where symbol in ("#ticker#")';
+    this.format =  'json';
+    this.env = 'store://datatables.org/alltableswithkeys';
 };
 
 /* REST */
@@ -40,17 +40,14 @@ app.get('/api/tickers', function (req, res) {
 
 app.get('/api/ticker', function(req, res) {
     var assetName = req.query['ticker'];
-    var options = queryOptions(assetName);
-    params.q = params.q.replace('#ticker#', options.ticker);
-    var params_data = '?' + querystring.stringify(params);
-
+    var p = new params();
+    p.q = p.q.replace('#ticker#', assetName);
+    var params_data = '?' + querystring.stringify(p);
     var promise = new Promise(function(resolve, reject) {
         https.get(host + params_data, function(resp) { 
             var body = "";
-
             resp.on('data', function(d) {
                 body += d;
-                console.log('data received');
             });
             
             resp.on('end', function(d) {
@@ -60,7 +57,6 @@ app.get('/api/ticker', function(req, res) {
             });
 
             resp.on('error', function(e) {
-                console.log('error');
                 reject(e); 
             })
         });
@@ -89,10 +85,4 @@ function date(offset) {
     return d.toISOString().split("T")[0];
 }
 
-function queryOptions(ticker) {
-    return {
-        ticker: ticker,
-        start: date(-1 - offset),
-        end: date()
-    };
-}
+

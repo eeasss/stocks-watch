@@ -1,6 +1,5 @@
 angular.module('app')
-    .controller('TickerCtrl', ['quote', function(quote) {
+    .controller('TickerCtrl', ['quote', 'tickers', function(quote, tickers) {
         var that = this;
-        quote.read('VYM').success(function(data) { that.foo = data.price; });        
-
+        tickers.read().success(function(data) { tickers.resolve(data); });
     }]);

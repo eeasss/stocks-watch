@@ -1,5 +1,0 @@
-angular.module('app')
-    factory('quote', ['$http', function($http) {
-        var read = function()     
-   
-    }]);
