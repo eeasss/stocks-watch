@@ -7,17 +7,22 @@ angular.module('app')
         };
 
         var resolve = function(data) {
-            for (asset in data) {
-                _resolve(data[asset]);
+            window.data = data;
+            for (var entity in data) {
+                _resolve(data[entity]);
             }
         };
 
-        function _resolve(asset) {
-            if (asset.type == CALCULATE) {
-                var assets = asset.assets
-                for (ticker in assets) {
-                    var name = assets[ticker];
-                    quote.read(ticker).success(function(data) { assets[ticker] = data.price });
+        function _resolve(entity) {
+            if (entity.type == CALCULATE) {
+                var assets = entity.assets
+                for (var ticker in assets) {
+                    (function(tick) {
+                        quote.read(ticker).success(function(data) {
+                            assets[tick].price = data.price;
+                            assets[tick].value = data.price * assets[tick].quantity;
+                        });
+                    })(ticker)
                 }
             }
         }
