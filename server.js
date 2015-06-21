@@ -1,8 +1,17 @@
+/* Usings */
 var express = require('express');
 var fs = require('fs');
 var https = require('https');
 var querystring = require('querystring');
 var app = express();
+
+/* Configure static files */
+
+app.use(express.static('app'));
+app.use(express.static('app/views'));
+app.use(express.static('app/public'));
+
+/* Variables */
 
 var host = 'https://query.yahooapis.com/v1/public/yql';
 var offset = 8 + 8 + 8  ; // 8 saturdays, 8 sundays, assume 8 public holidays
@@ -11,6 +20,8 @@ var params = {
     format: 'json',
     env: 'store://datatables.org/alltableswithkeys',
 };
+
+/* REST */
 
 app.get('/api/tickers', function (req, res) {
    var promise = new Promise(function(resolve, reject) {
@@ -55,7 +66,7 @@ app.get('/api/ticker', function(req, res) {
         });
     });
 
-    promise.then(function(val) { res.send('{ price: ' + val + '}'); });
+    promise.then(function(val) { res.send('{ "price": "' + val + '" }'); });
 });
 
 var server = app.listen(3000, function () {
