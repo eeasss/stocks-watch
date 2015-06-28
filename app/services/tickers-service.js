@@ -7,7 +7,6 @@ angular.module('app')
         };
 
         var resolve = function(data) {
-            window.data = data;
             for (var entity in data) {
                 _resolve(data[entity]);
             }
@@ -15,14 +14,14 @@ angular.module('app')
 
         function _resolve(entity) {
             if (entity.type == CALCULATE) {
-                var assets = entity.assets
+                var assets = entity.assets;
                 for (var ticker in assets) {
                     (function(tick) {
-                        quote.read(ticker).success(function(data) {
+                        quote.read(tick).success(function(data) {
                             assets[tick].price = data.price;
-                            assets[tick].value = data.price * assets[tick].quantity;
+                            assets[tick].value = (data.price * assets[tick].quantity).toFixed(2);
                         });
-                    })(ticker)
+                    })(ticker);
                 }
             }
         }
