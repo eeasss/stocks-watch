@@ -3,18 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Stocks viewer</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
+    <script src="angular.js"></script>
+    <script src="jquery.js"></script> 
 
     <script src="../app.js"></script>
-    <script src="../controllers/ticker-controller.js"></script>
+    <script src="../components/ticker-viewer/ticker-viewer.js"></script>
     <script src="../services/quote-service.js"></script>
     <script src="../services/tickers-service.js"></script>
 
    </head>
-<body>
-    <div ng-controller="TickerCtrl as ticker">
-        <ticker-viewer></ticker-viewer>
-    </div> 
+<body ng-app="app" ng-controller="AppController as app">
+    <ticker-viewer></ticker-viewer>
 </body>
 </html>

@@ -8,8 +8,8 @@ var app = express();
 /* Configure static files */
 
 app.use(express.static('app'));
-app.use(express.static('app/views'));
-app.use(express.static('app/public'));
+app.use(express.static('bower_components/angular'));
+app.use(express.static('bower_components/jquery/dist'));
 
 /* Variables */
 
