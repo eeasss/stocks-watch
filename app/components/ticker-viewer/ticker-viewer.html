@@ -1,1 +1,10 @@
-<div>foo</div>
+<span ng-if='!ticker.data'>Loading data...</span>
+
+<div ng-repeat='asset in ticker.data'>
+	<div class='asset'> {{ asset.name }} </div>
+	<div ng-repeat='b in asset.assets'>
+		<div class='item'>
+			<span>Ticker: {{ b.name }}</span><span>Value: {{ b.value }} {{ asset.currency }}</span>
+		</div>
+	</div>
+</div>

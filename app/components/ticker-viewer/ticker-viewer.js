@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('TickerCtrl', ['quote', 'tickers', TickerController])
+    .controller('TickerController', ['quote', 'tickers', TickerController])
     .directive('tickerViewer', [tickerViewer]);
              
 
@@ -17,9 +17,10 @@ function TickerController(quote, tickers) {
 function tickerViewer() {
      return {
             restrict: 'E',
-            replace: true,
+            replace: false,
+            controller: 'TickerController',
             controllerAs: 'ticker',
             bindToController: true,
-            templateUrl: 'app/components/ticker-viewer/ticker-viewer.html'
+            templateUrl: 'components/ticker-viewer/ticker-viewer.html'
         };
 }

@@ -15,14 +15,15 @@ angular.module('app')
         function _resolve(entity) {
             if (entity.type == CALCULATE) {
                 var assets = entity.assets;
-                for (var ticker in assets) {
-                    (function(tick) {
-                        quote.read(tick).success(function(data) {
-                            assets[tick].price = data.price;
-                            assets[tick].value = (data.price * assets[tick].quantity).toFixed(2);
+
+                assets.forEach(function(current, index) {
+                    (function(current) {
+                        quote.read(current.name).success(function(data) {
+                            current.price = data.price;
+                            current.value = (data.price * current.quantity).toFixed(2);
                         });
-                    })(ticker);
-                }
+                    })(current);
+                });
             }
         }
 
