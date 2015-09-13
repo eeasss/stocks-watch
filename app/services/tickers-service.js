@@ -1,5 +1,5 @@
 angular.module('app')
-    .factory('tickers', ['$http', 'quote', function($http, quote) {
+    .factory('tickers', ['$http', 'quote', 'results', function($http, quote, results) {
         var CALCULATE = 'C';
 
         var read = function() { 
@@ -7,6 +7,7 @@ angular.module('app')
         };
 
         var resolve = function(data) {
+            results.set(data);
             for (var entity in data) {
                 _resolve(data[entity]);
             }

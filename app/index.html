@@ -11,11 +11,14 @@
 
     <script src="../app.js"></script>
     <script src="../components/ticker-viewer/ticker-viewer.js"></script>
+    <script src="../components/total-viewer/total-viewer.js"></script>
     <script src="../services/quote-service.js"></script>
     <script src="../services/tickers-service.js"></script>
+    <script src="../services/results-service.js"></script>
 
    </head>
 <body ng-app="app" ng-controller="AppController as app">
+    <total-viewer></total-viewer>
     <ticker-viewer css='disply: block'></ticker-viewer>
 </body>
 </html>
