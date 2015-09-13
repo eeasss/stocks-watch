@@ -11,11 +11,29 @@ function TotalController(results) {
     var interval = setInterval(function() {
         if (data.length == 1) {
             clearInterval(interval);
-            debugger;
+            var totalValue = 0;
+            var assets = data[0];
+
+            assets.forEach(function(asset) {
+                debugger;
+                var value = 0;
+                var multiplier = asset.currency == "USD" ? 1.7 : 1;
+                var coefficient = asset.coefficient ? asset.coefficient : 1;
+
+                asset.assets.forEach(function(node) {
+                    value += parseInt(node.value);
+                });
+
+                value *= multiplier;
+                (totalValue += value / coefficient);
+            });
+
+            vm.value = totalValue;
         }
-
-
     }, 1000);
+}
+
+function calculateValue() {
 }
  
 function totalViewer() {
