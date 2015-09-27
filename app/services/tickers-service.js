@@ -28,6 +28,8 @@ angular.module('app')
                         });
                     })(current, entity);
                 });
+            } else {
+                results.add($.extend({}, entity.assets[0], { currency: entity.currency }));
             }
         }
 
