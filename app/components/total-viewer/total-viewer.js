@@ -1,41 +1,31 @@
 angular.module('app')
-    .controller('TotalController', ['results', TotalController])
+    .controller('TotalController', ['$scope', 'results', TotalController])
     .directive('totalViewer', [totalViewer]);
              
 
-function TotalController(results) {
+function TotalController($scope, results) {
     var vm = this;
     var data = results.get();
+    $scope.data = data;
     vm.value = 1;
 
-    var interval = setInterval(function() {
-        if (data.length == 1) {
-            clearInterval(interval);
-            var totalValue = 0;
-            var assets = data[0];
-
-            assets.forEach(function(asset) {
-                debugger;
-                var value = 0;
-                var multiplier = asset.currency == "USD" ? 1.7 : 1;
-                var coefficient = asset.coefficient ? asset.coefficient : 1;
-
-                asset.assets.forEach(function(node) {
-                    value += parseInt(node.value);
-                });
-
-                value *= multiplier;
-                (totalValue += value / coefficient);
-            });
-
-            vm.value = totalValue;
+    $scope.$watch('data.length', function() {
+        if (data.length == 0) {
+            return;
         }
-    }, 1000);
+        
+        var asset = data[data.length - 1];
+        var value = asset.value;
+        var multiplier = asset.currency == "USD" ? 1.7 : 1;
+        var coefficient = asset.coefficient ? asset.coefficient : 1;
+
+        value *= multiplier;
+        vm.value += parseFloat((value / coefficient).toFixed(2));
+    });
+
+ 
 }
 
-function calculateValue() {
-}
- 
 function totalViewer() {
      return {
             restrict: 'E',

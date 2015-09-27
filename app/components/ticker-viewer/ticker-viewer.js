@@ -1,9 +1,9 @@
 angular.module('app')
-    .controller('TickerController', ['quote', 'tickers', 'results', TickerController])
+    .controller('TickerController', ['quote', 'tickers', TickerController])
     .directive('tickerViewer', [tickerViewer]);
              
 
-function TickerController(quote, tickers, results) {
+function TickerController(quote, tickers) {
     var vm = this;
 
     tickers.read().success(function(data) { 

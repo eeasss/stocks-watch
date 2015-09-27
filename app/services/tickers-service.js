@@ -7,7 +7,6 @@ angular.module('app')
         };
 
         var resolve = function(data) {
-            results.set(data);
             for (var entity in data) {
                 _resolve(data[entity]);
             }
@@ -18,12 +17,16 @@ angular.module('app')
                 var assets = entity.assets;
 
                 assets.forEach(function(current, index) {
-                    (function(current) {
+                    (function(current, entity) {
                         quote.read(current.name).success(function(data) {
                             current.price = data.price;
                             current.value = (data.price * current.quantity).toFixed(2);
+                            current.currency = entity.currency;
+                            current.coefficient = entity.coefficient;
+                            /* TO DO: REFACTOR TO PASS ONLY RELEVANT INFORMATION. jq.EXTEND? */
+                            results.add(current);
                         });
-                    })(current);
+                    })(current, entity);
                 });
             }
         }
