@@ -15,7 +15,7 @@ function TotalController($scope, results) {
         }
 
         var asset = data[data.length - 1];
-        console.log(asset.currency);
+        
         var value = asset.value;
         var multiplier = asset.currency == "USD" ? 1.7 : 1;
         var coefficient = asset.coefficient ? asset.coefficient : 1;
