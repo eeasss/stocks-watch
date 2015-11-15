@@ -1,5 +1,21 @@
-angular.module('app', [])
-	.controller('AppController', AppController);
+(function() {
 
-function AppController() {
-}
+	angular.module('app', ['ngNewRouter'])
+	  .controller('AppController', ['$router', AppController]);
+
+	 AppController.$routeConfig = [
+        {
+            path: '/',
+            components: {
+                master: 'totalViewer',
+                detail: 'tickerViewer'
+             }
+        }
+    ];
+
+	function AppController($router) {
+
+
+	}
+
+})();

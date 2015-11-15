@@ -9,6 +9,7 @@ var app = express();
 
 app.use(express.static('app'));
 app.use(express.static('bower_components/angular'));
+app.use(express.static('bower_components/angular-new-router/dist'));
 app.use(express.static('bower_components/jquery/dist'));
 app.use(express.static('bower_components/bootstrap/dist/css'));
 

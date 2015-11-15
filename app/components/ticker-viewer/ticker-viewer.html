@@ -1,8 +1,8 @@
-<span ng-if='!ticker.data'>Loading data...</span>
+<span ng-if='!tickerViewer.data'>Loading data...</span>
 
 <link rel="stylesheet" href="components/ticker-viewer/ticker-viewer.css"></link>
 
-<div class='container' ng-repeat='asset in ticker.data'>
+<div class='container' ng-repeat='asset in tickerViewer.data'>
 	<div class='asset'> {{ asset.name }} </div>
 	<table class='table table-condensed' ng-repeat='b in asset.assets'>
 		<tbody>
