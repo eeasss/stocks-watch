@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+(function() {
+
+    var normalizePort = function(val) {
+        var port = parseInt(val, 10);
+
+        if (isNaN(port)) {
+            // named pipe
+            return val;
+        }
+
+        if (port >= 0) {
+            // port number
+            return port;
+        }
+
+        return false;
+    };
+    
+    var port = normalizePort(process.env.PORT || '8081');
+    var server = require('../server/server.js')(port);
+
+    server.on('error', onError);
+
+    /**
+    * Event listener for HTTP server "error" event.
+    */
+
+    function onError(error) {
+        if (error.syscall !== 'listen') {
+            throw error;
+        }
+    }
+}());

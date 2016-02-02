@@ -1,9 +1,9 @@
-(function() {
+(function(angular) {
 
-	angular.module('app', ['ngNewRouter'])
-	  .controller('AppController', ['$router', AppController]);
+    angular.module('app', ['ngNewRouter'])
+       .controller('AppController', ['$router', AppController]);
 
-	 AppController.$routeConfig = [
+    AppController.$routeConfig = [
         {
             path: '/',
             components: {
@@ -13,9 +13,9 @@
         }
     ];
 
-	function AppController($router) {
+    function AppController($router) {
 
 
-	}
+    }
 
-})();
+})(angular);
