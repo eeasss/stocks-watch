@@ -32,7 +32,7 @@
                     if (err) {
                         throw err;
                     }
-                    console.log(data);
+
                     resolve(JSON.parse(data));
                 });   
             });

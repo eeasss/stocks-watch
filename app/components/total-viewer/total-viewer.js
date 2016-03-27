@@ -1,31 +1,24 @@
 (function(angular) {
 
     angular.module('app')
-        .controller('TotalViewerController', ['results', TotalViewerController])
+        .controller('TotalViewerController', ['results', 'notification', TotalViewerController])
              
 
-    function TotalViewerController(results) {
-        this.data = results.get();
-        this.value = 0;
-    }
-
-    TotalViewerController.prototype.activate = function($scope) {
+    function TotalViewerController(results, notification) {
         var vm = this;
-        $scope.$watch(vm.data.length, function() {
-            var data = vm.data;
-            if (data.length == 0) {
-                return;
+        vm.data = results.get();
+        vm.value = 0;
+        
+        notification.bind('ticker-resolved', function(e, data) {
+            //to do: refactor in currency service
+            var val = data.value;
+            if (data.currency === 'USD') {
+                val *= 1.7;
             }
 
-            var asset = data[data.length - 1];
-            
-            var value = asset.value;
-            var multiplier = asset.currency == "USD" ? 1.7 : 1;
-            var coefficient = asset.coefficient ? asset.coefficient : 1;
-
-            value *= multiplier;
-            vm.value += Math.round(value / coefficient, 2); 
+            vm.value += parseFloat(val);
         });
+    
     }
 
 })(angular);

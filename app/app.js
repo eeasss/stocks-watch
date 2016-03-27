@@ -14,8 +14,6 @@
     ];
 
     function AppController($router) {
-
-
     }
 
 })(angular);

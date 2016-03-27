@@ -22,7 +22,6 @@ angular.module('app')
                             current.price = data.price;
                             current.value = (data.price * current.quantity).toFixed(2);
                             current.currency = entity.currency;
-                            current.coefficient = entity.coefficient;
                             /* TO DO: REFACTOR TO PASS ONLY RELEVANT INFORMATION. jq.EXTEND? */
                             results.add(current);
                         });
