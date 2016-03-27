@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/eeasss/stocks-watch",
   "authors": [
-    "sergeev <eeasss@gmail.com>"
+
   ],
   "description": "Sample application for fetching and displaying Yahoo Finance data",
   "main": "app.js",
