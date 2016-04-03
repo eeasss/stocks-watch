@@ -1,24 +1,35 @@
 (function(angular) {
 
     angular.module('app')
-        .controller('TotalViewerController', ['results', 'notification', TotalViewerController])
+        .controller('TotalViewerController', ['results', 'notification', 'categories', TotalViewerController])
              
 
-    function TotalViewerController(results, notification) {
+    function TotalViewerController(results, notification, categories) {
         var vm = this;
         vm.data = results.get();
         vm.value = 0;
+        vm.categories = categories.read();
         
         notification.bind('ticker-resolved', function(e, data) {
-            //to do: refactor in currency service
-            var val = data.value;
-            if (data.currency === 'USD') {
-                val *= 1.7;
-            }
+            vm.value += parseFloat(data.value);;
+            
+            updateCategories(data, vm.categories);
+            updateAllocations(data, vm.categories, vm.value);
 
-            vm.value += parseFloat(val);
         });
-    
+        
+        function updateCategories(ticker, categories) {
+            var category = categories.find(c => c.name === ticker.category);
+            category.value += parseFloat(ticker.value);
+        }
+        
+        function updateAllocations(ticker, categories, totalValue) {
+            categories.forEach(category => {
+                category.percentage = ((category.value / totalValue) * 100).toFixed(2) + '%';
+            });
+            
+            //console.log(angular.extend({}, categories));
+        }
     }
 
 })(angular);
