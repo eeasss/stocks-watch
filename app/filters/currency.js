@@ -3,6 +3,6 @@ angular.module('app.filters', []).
         return (input) => {
            
             // pass this to a currency service
-            return input * 1.7;
+            return (input * 1.7).toFixed(2);
         }
     });
