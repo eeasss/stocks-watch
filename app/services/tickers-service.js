@@ -1,5 +1,5 @@
 angular.module('app')
-    .factory('tickers', ['$http', 'quote', 'results', function($http, quote, results) {
+    .factory('tickers', ['$http', 'quote', 'results', 'currency', function($http, quote, results, currency) {
         var CALCULATE = 'C';
 
         var TickerService = function() {
@@ -24,14 +24,14 @@ angular.module('app')
 
             _calculate: function(entity) {
                 var assets = entity.assets;
-                var currency = entity.currency;
-                assets.forEach((cur, index) => {
-                    quote.read(cur.name).success(data => {
-                        cur.price = data.price;
-                        cur.value = (data.price * cur.quantity).toFixed(2);
-                        cur.currency = currency;
+                var currencyName = entity.currency;
+                assets.forEach((current, index) => {
+                    quote.read(current.name).success(data => {
+                        current.price = data.price;
+                        current.value = (currency.resolve(currencyName, data.price) * current.quantity).toFixed(2);
+                        current.currency = currencyName;
 
-                        results.add(cur);
+                        results.add(current);
                     });
                 });
             }
