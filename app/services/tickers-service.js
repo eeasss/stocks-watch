@@ -2,38 +2,40 @@ angular.module('app')
     .factory('tickers', ['$http', 'quote', 'results', function($http, quote, results) {
         var CALCULATE = 'C';
 
-        var read = function() { 
-            return $http.get('api/tickers');
-        };
+        var TickerService = function() {
+        }
 
-        var resolve = function(data) {
-            for (var entity in data) {
-                _resolve(data[entity]);
-            }
-        };
+        TickerService.prototype = {
+            read: function() {
+                return $http.get('api/tickers');
+            },
 
-        function _resolve(entity) {
-            if (entity.type == CALCULATE) {
-                var assets = entity.assets;
+            resolve: function(data) {
+                Object.keys(data).forEach(key=> {
+                    var entity = data[key];
 
-                assets.forEach(function(current, index) {
-                    (function(current, entity) {
-                        quote.read(current.name).success(function(data) {
-                            current.price = data.price;
-                            current.value = (data.price * current.quantity).toFixed(2);
-                            current.currency = entity.currency;
-                            /* TO DO: REFACTOR TO PASS ONLY RELEVANT INFORMATION. jq.EXTEND? */
-                            results.add(current);
-                        });
-                    })(current, entity);
+                    switch (entity.type) {
+                        case CALCULATE:
+                            this._calculate(entity);
+                        break;
+                    }
                 });
-            } else {
-                results.add($.extend({}, entity.assets[0], { currency: entity.currency }));
+            },
+
+            _calculate: function(entity) {
+                var assets = entity.assets;
+                var currency = entity.currency;
+                assets.forEach((cur, index) => {
+                    quote.read(cur.name).success(data => {
+                        cur.price = data.price;
+                        cur.value = (data.price * cur.quantity).toFixed(2);
+                        cur.currency = currency;
+
+                        results.add(cur);
+                    });
+                });
             }
         }
 
-        return {
-            read: read,
-            resolve: resolve
-        };
+        return new TickerService();
     }]);
