@@ -15,7 +15,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'stocks-watch',
-            template: "\n        <div>\n            <total-viewer></total-viewer>\n            <ticker-viewer></ticker-viewer>\n        </div>\n    "
+            templateUrl: './app.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

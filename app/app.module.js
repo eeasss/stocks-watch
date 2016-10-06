@@ -20,7 +20,8 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule
             ],
             declarations: [
-                app_component_1.AppComponent
+                app_component_1.AppComponent,
+                TickerComponent
             ]
         }), 
         __metadata('design:paramtypes', [])

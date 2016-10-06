@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector:'stocks-watch',
-    template:`
-        <div>
-            <total-viewer></total-viewer>
-            <ticker-viewer></ticker-viewer>
-        </div>
-    `
+    templateUrl: './app.component.html'
 })
 
 export class AppComponent {
