@@ -8,12 +8,13 @@ import { TickerService } from './ticker.service';
 
 export class TickerViewerComponent implements OnInit {
     title: 'Ticker Viewer';
+    data = null;
 
     constructor(private tickerService: TickerService) {
-        var this = that;
-        tickers.read().success(function(data) {
+        var that = this;
+        tickerService.read().then(data => {
             that.data = data;
-            tickers.resolve(data);
+            tickerService.resolve(data);
         });
     }
 
@@ -23,10 +24,3 @@ export class TickerViewerComponent implements OnInit {
 
 };
 
-    function TickerViewerController(tickers) {
-        var vm = this;
-
-
-
-        return vm.data;
-    }

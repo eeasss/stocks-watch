@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { TickerViewer } from  './ticker-viewer.component';
+import { TickerViewerComponent } from  './ticker-viewer.component';
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        HttpModule
     ],
     declarations: [
         AppComponent,
-        TickerComponent
+        TickerViewerComponent
     ]
 })
 

@@ -13,11 +13,11 @@ var ticker_service_1 = require('./ticker.service');
 var TickerViewerComponent = (function () {
     function TickerViewerComponent(tickerService) {
         this.tickerService = tickerService;
-        var ;
-        this = that;
-        tickers.read().success(function (data) {
+        this.data = null;
+        var that = this;
+        tickerService.read().then(function (data) {
             that.data = data;
-            tickers.resolve(data);
+            tickerService.resolve(data);
         });
     }
     TickerViewerComponent.prototype.ngOnInit = function () {
@@ -33,8 +33,4 @@ var TickerViewerComponent = (function () {
 }());
 exports.TickerViewerComponent = TickerViewerComponent;
 ;
-function TickerViewerController(tickers) {
-    var vm = this;
-    return vm.data;
-}
 //# sourceMappingURL=ticker-viewer.component.js.map

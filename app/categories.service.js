@@ -8,28 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var platform_browser_1 = require('@angular/platform-browser');
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var app_component_1 = require('./app.component');
-var ticker_viewer_component_1 = require('./ticker-viewer.component');
-var AppModule = (function () {
-    function AppModule() {
+var CategoriesService = (function () {
+    function CategoriesService() {
+        this.categories = [
+            'Bonds',
+            'USA ETF',
+            'REIT',
+            'Yield Co',
+            'Emerging and International ETF',
+            'Stocks',
+            'EMEA ETF'
+        ];
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                http_1.HttpModule
-            ],
-            declarations: [
-                app_component_1.AppComponent,
-                ticker_viewer_component_1.TickerViewerComponent
-            ]
-        }), 
+    CategoriesService.prototype.read = function () {
+        return this.categories.map(function (c) {
+            return { name: c, value: 0 };
+        });
+    };
+    CategoriesService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], CategoriesService);
+    return CategoriesService;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.CategoriesService = CategoriesService;
+//# sourceMappingURL=categories.service.js.map
