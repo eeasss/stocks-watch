@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var CategoriesService = (function () {
-    function CategoriesService() {
+const core_1 = require('@angular/core');
+let CategoriesService = class CategoriesService {
+    constructor() {
         this.categories = [
             'Bonds',
             'USA ETF',
@@ -21,16 +21,15 @@ var CategoriesService = (function () {
             'EMEA ETF'
         ];
     }
-    CategoriesService.prototype.read = function () {
-        return this.categories.map(function (c) {
+    read() {
+        return this.categories.map(c => {
             return { name: c, value: 0 };
         });
-    };
-    CategoriesService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], CategoriesService);
-    return CategoriesService;
-}());
+    }
+};
+CategoriesService = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [])
+], CategoriesService);
 exports.CategoriesService = CategoriesService;
 //# sourceMappingURL=categories.service.js.map

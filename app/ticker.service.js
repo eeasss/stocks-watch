@@ -8,43 +8,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+const core_1 = require('@angular/core');
+const http_1 = require('@angular/http');
+const quote_service_ts_1 = require('./quote.service.ts');
+const results_service_ts_1 = require('./results.service.ts');
+const currency_service_ts_1 = require('./currency.service.ts');
 require('rxjs/add/operator/toPromise');
-var TickerService = (function () {
-    function TickerService(http) {
+let TickerService = class TickerService {
+    constructor(http, quote, currency, results) {
         this.http = http;
+        this.quote = quote;
+        this.currency = currency;
+        this.results = results;
     }
-    TickerService.prototype.read = function () {
+    read() {
         return this.http.get('api/tickers').toPromise();
-    };
-    TickerService.prototype.resolve = function (data) {
-        var CALCULATE = 'C';
-        Object.keys(data).forEach(function (key) {
-            var entity = data[key];
+    }
+    resolve(data) {
+        const CALCULATE = 'C';
+        Object.keys(data).forEach(key => {
+            let entity = data[key];
             switch (entity.type) {
                 case CALCULATE:
                     break;
             }
         });
-    };
-    TickerService.prototype.calculate = function (entity) {
+    }
+    calculate(entity) {
         var assets = entity.assets;
         var currencyName = entity.currency;
-        assets.forEach(function (current, index) {
-            quote.read(current.name).success(function (data) {
+        assets.forEach((current, index) => {
+            this.quote.read(current.name).then(data => {
                 current.price = data.price;
-                current.value = (currency.resolve(currencyName, data.price) * current.quantity).toFixed(2);
-                results.add(current);
+                //current.value = (this.currency.resolve(currencyName, data.price) * current.quantity).toFixed(2);
+                this.results.add(current);
             });
         });
-    };
-    TickerService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], TickerService);
-    return TickerService;
-}());
+    }
+};
+TickerService = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [http_1.Http, quote_service_ts_1.QuoteService, currency_service_ts_1.CurrencyService, results_service_ts_1.ResultsService])
+], TickerService);
 exports.TickerService = TickerService;
 // angular.module('app')
 //     .factory('tickers', ['$http', 'quote', 'results', 'currency', function($http, quote, results, currency) {

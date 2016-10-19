@@ -8,20 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const http_1 = require('@angular/http');
 const core_1 = require('@angular/core');
-require('rxjs/add/operator/toPromise');
-let QuoteService = class QuoteService {
-    constructor(http) {
-        this.http = http;
+const notification_service_1 = require('./notification.service');
+let ResultsService = class ResultsService {
+    constructor(notifications) {
+        this.notifications = notifications;
     }
-    read(ticker) {
-        return this.http.get('/api/ticker?ticker=' + ticker).toPromise();
+    add(entity) {
+        this.data.push(entity);
+        this.notifications.trigger('ticker-resolved', entity);
+    }
+    get() {
+        return this.data;
     }
 };
-QuoteService = __decorate([
+ResultsService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [http_1.Http])
-], QuoteService);
-exports.QuoteService = QuoteService;
-//# sourceMappingURL=quote.service.js.map
+    __metadata('design:paramtypes', [notification_service_1.NotificationService])
+], ResultsService);
+exports.ResultsService = ResultsService;
+//# sourceMappingURL=results.service.js.map

@@ -8,29 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var ticker_service_1 = require('./ticker.service');
-var TickerViewerComponent = (function () {
-    function TickerViewerComponent(tickerService) {
+const core_1 = require('@angular/core');
+const ticker_service_1 = require('./ticker.service');
+let TickerViewerComponent = class TickerViewerComponent {
+    constructor(tickerService) {
         this.tickerService = tickerService;
         this.data = null;
         var that = this;
-        tickerService.read().then(function (data) {
+        tickerService.read().then(data => {
             that.data = data;
             tickerService.resolve(data);
         });
     }
-    TickerViewerComponent.prototype.ngOnInit = function () {
-    };
-    TickerViewerComponent = __decorate([
-        core_1.Component({
-            selector: 'ticker-viewer',
-            templateUrl: 'app/ticker-viewer.component.html'
-        }), 
-        __metadata('design:paramtypes', [ticker_service_1.TickerService])
-    ], TickerViewerComponent);
-    return TickerViewerComponent;
-}());
+    ngOnInit() {
+    }
+};
+TickerViewerComponent = __decorate([
+    core_1.Component({
+        selector: 'ticker-viewer',
+        templateUrl: 'app/ticker-viewer.component.html'
+    }), 
+    __metadata('design:paramtypes', [ticker_service_1.TickerService])
+], TickerViewerComponent);
 exports.TickerViewerComponent = TickerViewerComponent;
 ;
 //# sourceMappingURL=ticker-viewer.component.js.map

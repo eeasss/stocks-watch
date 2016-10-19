@@ -5,6 +5,12 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
 
+import { NotificationService } from './notification.service.ts';
+import { QuoteService } from './quote.service.ts';
+import { ResultsService } from './results.service.ts';
+import { TickerService } from './ticker.service.ts';
+import { CurrencyService } from './currency.service.ts';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -13,6 +19,13 @@ import { TickerViewerComponent } from  './ticker-viewer.component';
     declarations: [
         AppComponent,
         TickerViewerComponent
+    ],
+    providers: [
+        NotificationService,
+        QuoteService,
+        ResultsService,
+        TickerService,
+        CurrencyService
     ]
 })
 
