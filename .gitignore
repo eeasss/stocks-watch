@@ -3,3 +3,4 @@
 /assets.json
 /.vscode
 *.js
+.js.*
