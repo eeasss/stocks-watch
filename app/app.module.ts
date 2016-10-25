@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { ModelsModule } from './models/models.module.ts';
 
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
@@ -14,11 +15,15 @@ import { CurrencyService } from './currency.service.ts';
 @NgModule({
     imports: [
         BrowserModule,
-        HttpModule
+        HttpModule,
+        ModelsModule
     ],
     declarations: [
         AppComponent,
         TickerViewerComponent
+    ],
+    exports: [
+        ModelsModule
     ],
     providers: [
         NotificationService,

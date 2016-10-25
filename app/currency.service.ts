@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 Injectable()
 export class CurrencyService {
-    resolve(currencyName: string, price: number): string {
+    resolve(currencyName: string, price: number): number {
         let result = 0;
         switch (currencyName) {
             case 'USD':
@@ -13,6 +13,6 @@ export class CurrencyService {
             break;
         }
 
-        return result.toFixed(2);
+        return result;
     }
 }

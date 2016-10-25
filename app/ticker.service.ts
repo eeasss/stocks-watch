@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { QuoteService } from './quote.service.ts';
-import { ResultsService } from'./results.service.ts';
-import { CurrencyService } from './currency.service.ts';
+import { QuoteService } from './quote.service';
+import { ResultsService } from'./results.service';
+import { CurrencyService } from './currency.service';
+
+import { Entity } from './models/entity';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -30,18 +32,20 @@ export class TickerService {
         });
     }
 
-    private calculate(entity:any) {
-
+    private calculate(entity:Entity) {
         var assets = entity.assets;
-        var currencyName = entity.currency;
+        var currency = entity.currency;
+        var that = this;
 
-        assets.forEach((current, index) => {
-            this.quote.read(current.name).then(data => {
-                current.price = data.price;
-                //current.value = (this.currency.resolve(currencyName, data.price) * current.quantity).toFixed(2);
-
-                this.results.add(current);
-            });
+        assets.forEach((asset, index) => {
+            that.quote
+                .read(asset.name)
+                .then(quote => {
+                    asset.price = quote.price;
+                    var converted = that.currency.resolve(currency, asset.price);
+                    asset.value = (converted * asset.quantity).toFixed(2);
+                });
         });
+
     }
 }
