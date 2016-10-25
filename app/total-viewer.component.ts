@@ -6,7 +6,7 @@ import { CategoriesService } from './categories.service';
 
 @Component({
     selector: 'total-viewer',
-    templateUrl: './total-viewer.component.html'
+    templateUrl: 'app/total-viewer.component.html'
 })
 export class TotalViewerComponent {
     private data: any;

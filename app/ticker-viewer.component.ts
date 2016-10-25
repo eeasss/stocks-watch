@@ -3,7 +3,8 @@ import { TickerService } from './ticker.service';
 
 @Component({
     selector: 'ticker-viewer',
-    templateUrl: 'app/ticker-viewer.component.html'
+    templateUrl: 'app/ticker-viewer.component.html',
+    styleUrls: ['app/ticker-viewer.component.css']
 })
 
 export class TickerViewerComponent implements OnInit {

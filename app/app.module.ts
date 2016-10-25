@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
+import { TotalViewerComponent } from './total-viewer.component';
 
 import { NotificationService } from './notification.service';
 import { QuoteService } from './quote.service';
@@ -18,9 +19,12 @@ import { CurrencyService } from './currency.service';
     ],
     declarations: [
         AppComponent,
-        TickerViewerComponent
+        TickerViewerComponent,
+        TotalViewerComponent
     ],
     exports: [
+        TickerViewerComponent,
+        TotalViewerComponent
     ],
     providers: [
         NotificationService,
