@@ -11,6 +11,7 @@ import { QuoteService } from './quote.service';
 import { ResultsService } from './results.service';
 import { TickerService } from './ticker.service';
 import { CurrencyService } from './currency.service';
+import { CategoriesService } from './categories.service';
 
 @NgModule({
     imports: [
@@ -22,6 +23,9 @@ import { CurrencyService } from './currency.service';
         TickerViewerComponent,
         TotalViewerComponent
     ],
+    bootstrap: [
+        AppComponent
+    ],
     exports: [
         TickerViewerComponent,
         TotalViewerComponent
@@ -31,7 +35,8 @@ import { CurrencyService } from './currency.service';
         QuoteService,
         ResultsService,
         TickerService,
-        CurrencyService
+        CurrencyService,
+        CategoriesService
     ]
 })
 

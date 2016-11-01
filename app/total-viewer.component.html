@@ -1,6 +1,6 @@
 <div>Total cash: {{ value }} BGN </div>
 
-<div *ngFor="let cat in cats">
+<div ngFor="let cat in cats">
     <span>{{ cat.name }} ( {{ cat.value }} ) : </span>
     <span>{{ cat.percentage }}</span>
 </div>

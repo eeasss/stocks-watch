@@ -1,10 +1,10 @@
 <span *ngIf='!data'>Loading data...</span>
 
-<div class='container' *ngFor='let asset in data'>
+<div class='container' ngFor='let asset in data'>
 	<div class='asset'> {{ asset.name }} </div>
-	<table class='table table-condensed' *ngFor='let b in asset.assets'>
+	<table  class='table table-condensed' >
 		<tbody>
-			<tr>
+			<tr ngFor='let b in asset.assets'>
 				<td class='info'>Ticker: {{ b.name }}</td>
 				<td>Value: {{ b.value }} {{ asset.currency }}</td>
 			</tr>

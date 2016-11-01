@@ -5,7 +5,7 @@ export class NotificationService {
     private events: Array<{event: string, callback: Function}>
 
     constructor() {
-
+        this.events = new Array<{event: string, callback: Function}>();
     }
 
     bind(event: string, callback: Function) {
