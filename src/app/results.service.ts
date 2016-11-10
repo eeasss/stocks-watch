@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 import { NotificationService } from './notification.service';
 
 @Injectable()
 export class ResultsService {
-    private data: Array<any>
+    private data: Array<any>;
+
     constructor(private notifications: NotificationService) {
 
     }

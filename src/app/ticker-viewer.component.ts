@@ -3,8 +3,8 @@ import { TickerService } from './ticker.service';
 
 @Component({
     selector: 'ticker-viewer',
-    templateUrl: 'app/ticker-viewer.component.html',
-    styleUrls: ['app/ticker-viewer.component.css']
+    templateUrl: 'ticker-viewer.component.html',
+    styleUrls: ['ticker-viewer.component.css']
 })
 
 export class TickerViewerComponent implements OnInit {
@@ -12,7 +12,7 @@ export class TickerViewerComponent implements OnInit {
     data = null;
 
     constructor(private tickerService: TickerService) {
-        var that = this;
+        let that = this;
         tickerService.read().then(data => {
             that.data = data;
             tickerService.resolve(data);

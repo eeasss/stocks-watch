@@ -6,16 +6,16 @@ import { CategoriesService } from './categories.service';
 
 @Component({
     selector: 'total-viewer',
-    templateUrl: 'app/total-viewer.component.html'
+    templateUrl: 'total-viewer.component.html'
 })
+
 export class TotalViewerComponent {
-    private data: any;
     private value: number = 0;
-    private cats: any[]
+    private cats: any[];
 
     constructor(private reuslts: ResultsService, private notis: NotificationService, private categories: CategoriesService) {
         this.cats = categories.read();
-        var that = this;
+        let that = this;
 
         this.notis.bind('ticker-resolved', function(e, data) {
             that.value += parseFloat(data.value);
@@ -26,7 +26,7 @@ export class TotalViewerComponent {
     }
 
     updateCategories(ticker:any, categories: any[]) {
-        var category = categories.find(c => c.name === ticker.category)
+        let category = categories.find(c => c.name === ticker.category)
         category.value += parseFloat(ticker.value);
     }
 
@@ -35,6 +35,4 @@ export class TotalViewerComponent {
             c.percentage = ((c.value / totalValue) * 100).toFixed(2) + '%';
         });
     }
-
-
 }

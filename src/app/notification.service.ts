@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class NotificationService {
-    private events: Array<{event: string, callback: Function}>
+    private events: Array<{event: string, callback: Function}>;
 
     constructor() {
         this.events = new Array<{event: string, callback: Function}>();
@@ -16,5 +16,3 @@ export class NotificationService {
         this.events.find(p => p.event === eventName).callback.call(this, args);
     }
 }
-
-

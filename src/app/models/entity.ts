@@ -1,4 +1,4 @@
-import { Asset } from './asset.ts';
+import { Asset } from './asset';
 
 export class Entity {
     public assets: Asset[];

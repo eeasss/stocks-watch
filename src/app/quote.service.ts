@@ -5,10 +5,10 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class QuoteService {
-    constructor(private http:Http) {
+    constructor(private http: Http) {
     }
 
-    read(ticker:string): Promise<any> {
+    read(ticker: string): Promise<any> {
         return this.http.get('/api/ticker?ticker=' + ticker).toPromise();
     }
 }

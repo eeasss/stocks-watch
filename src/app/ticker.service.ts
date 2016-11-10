@@ -4,7 +4,6 @@ import { Http } from '@angular/http';
 import { QuoteService } from './quote.service';
 import { ResultsService } from'./results.service';
 import { CurrencyService } from './currency.service';
-
 import { Entity } from './models/entity';
 
 import 'rxjs/add/operator/toPromise';
@@ -20,29 +19,30 @@ export class TickerService {
     }
 
     resolve(data: Object) {
-        const CALCULATE:string = 'C';
+        const CALCULATE = 'C';
 
         Object.keys(data).forEach(key => {
             let entity = data[key];
 
             switch (entity.type) {
                 case CALCULATE:
+                this.calculate(entity);
                 break;
             }
         });
     }
 
-    private calculate(entity:Entity) {
-        var assets = entity.assets;
-        var currency = entity.currency;
-        var that = this;
+    private calculate(entity: Entity) {
+        let assets = entity.assets;
+        let currency = entity.currency;
+        let that = this;
 
         assets.forEach((asset, index) => {
             that.quote
                 .read(asset.name)
                 .then(quote => {
                     asset.price = quote.price;
-                    var converted = that.currency.resolve(currency, asset.price);
+                    let converted = that.currency.resolve(currency, asset.price);
                     asset.value = (converted * asset.quantity).toFixed(2);
                 });
         });
