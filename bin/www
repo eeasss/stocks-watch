@@ -17,9 +17,9 @@
 
         return false;
     };
-    
+
     var port = normalizePort(process.env.PORT || '8081');
-    var server = require('../src/server/server.js')(port);
+    var server = require('../dist/server/server.js')(port);
 
     server.on('error', onError);
 
