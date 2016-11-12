@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 import { TickerService } from './ticker.service';
+import { Entity } from './models/entity';
+
+import { Observable } from 'rxjs'
 
 @Component({
     selector: 'ticker-viewer',
@@ -9,13 +13,14 @@ import { TickerService } from './ticker.service';
 
 export class TickerViewerComponent implements OnInit {
     title: 'Ticker Viewer';
-    data = null;
+    entities = null;
 
     constructor(private tickerService: TickerService) {
         let that = this;
-        tickerService.read().then(data => {
-            that.data = data;
-            tickerService.resolve(data);
+        tickerService.read().then((result: Response) => {
+            let entities: Entity[] = result.json();
+            that.entities = entities
+            tickerService.resolve(entities);
         });
     }
 

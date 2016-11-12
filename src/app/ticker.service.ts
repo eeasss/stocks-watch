@@ -18,12 +18,10 @@ export class TickerService {
         return this.http.get('api/tickers').toPromise();
     }
 
-    resolve(data: Object) {
+    resolve(entities: Entity[]) {
         const CALCULATE = 'C';
 
-        Object.keys(data).forEach(key => {
-            let entity = data[key];
-
+        entities.forEach(entity => {
             switch (entity.type) {
                 case CALCULATE:
                 this.calculate(entity);
