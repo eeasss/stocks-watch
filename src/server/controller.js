@@ -1,5 +1,5 @@
 (function(module) {
-    
+
     var fs = require('fs');
     var https = require('https');
     var querystring = require('querystring');
@@ -34,11 +34,11 @@
                     }
 
                     resolve(JSON.parse(data));
-                });   
+                });
             });
-            
+
             promise.then(function(val) { res.send(val); });
-            
+
         });
 
         app.get('/api/currency', function(req, res) {
@@ -73,12 +73,12 @@
             p.q = p.q.replace('#ticker#', assetName);
             var params_data = '?' + querystring.stringify(p);
             var promise = new Promise(function(resolve, reject) {
-                https.get(host + params_data, function(resp) { 
+                https.get(host + params_data, function(resp) {
                     var body = '';
                     resp.on('data', function(d) {
                         body += d;
                     });
-                    
+
                     resp.on('end', function(d) {
                         var parsedBody = JSON.parse(body);
                         var price = parsedBody.query.results.quote.LastTradePriceOnly;
@@ -86,7 +86,7 @@
                     });
 
                     resp.on('error', function(e) {
-                        reject(e); 
+                        reject(e);
                     })
                 });
             });
@@ -98,15 +98,6 @@
 
     function readStorage(callback) {
         fs.readFile('assets.json', 'utf8', callback);
-    }
-
-    function date(offset) {
-        var d = new Date();
-        if (offset) {
-            d.setDate(d.getDate() + offset);
-        }
-
-        return d.toISOString().split("T")[0];
     }
 
     module.exports = new Controller();
