@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import { GridModule } from '@progress/kendo-angular-grid';
+
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
 import { TotalViewerComponent } from './total-viewer.component';
@@ -16,6 +18,7 @@ import { CategoriesService } from './categories.service';
 @NgModule({
     imports: [
         BrowserModule,
+        GridModule,
         HttpModule
     ],
     declarations: [

@@ -7,8 +7,7 @@ import { Observable } from 'rxjs'
 
 @Component({
     selector: 'ticker-viewer',
-    templateUrl: 'ticker-viewer.component.html',
-    styleUrls: ['ticker-viewer.component.css']
+    templateUrl: 'ticker-viewer.component.html'
 })
 
 export class TickerViewerComponent implements OnInit {

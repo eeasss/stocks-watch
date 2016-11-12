@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Response } from '@angular/http';
 
 import { QuoteService } from './quote.service';
 import { ResultsService } from'./results.service';
@@ -34,12 +35,11 @@ export class TickerService {
         let assets = entity.assets;
         let currency = entity.currency;
         let that = this;
-
         assets.forEach((asset, index) => {
             that.quote
                 .read(asset.name)
-                .then(quote => {
-                    asset.price = quote.price;
+                .then((quote:Response) => {
+                    asset.price = parseFloat(quote.json().price);
                     let converted = that.currency.resolve(currency, asset.price);
                     asset.value = (converted * asset.quantity).toFixed(2);
                 });
