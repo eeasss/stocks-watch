@@ -3,5 +3,5 @@
 /assets.json
 /dist
 /.vscode
-*.js
+/src/app/*.js
 *.map
