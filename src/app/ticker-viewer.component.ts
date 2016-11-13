@@ -27,6 +27,5 @@ export class TickerViewerComponent implements OnInit {
     ngOnInit(): void {
 
     }
-
 };
 
