@@ -7,7 +7,8 @@ import { Observable } from 'rxjs'
 
 @Component({
     selector: 'ticker-viewer',
-    templateUrl: 'ticker-viewer.component.html'
+    templateUrl: './ticker-viewer.component.html',
+    styleUrls: ['./ticker-viewer.component.scss']
 })
 
 export class TickerViewerComponent implements OnInit {
@@ -18,7 +19,7 @@ export class TickerViewerComponent implements OnInit {
         let that = this;
         tickerService.read().then((result: Response) => {
             let entities: Entity[] = result.json();
-            that.entities = entities
+            that.entities = entities;
             tickerService.resolve(entities);
         });
     }
