@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Response } from '@angular/http';
 import { TickerService } from './ticker.service';
 import { Entity } from './models/entity';
 
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs/Observable'
 
 @Component({
     selector: 'ticker-viewer',
@@ -11,17 +11,20 @@ import { Observable } from 'rxjs'
     styleUrls: ['./ticker-viewer.component.scss']
 })
 
-export class TickerViewerComponent implements OnInit {
+export class TickerViewerComponent implements OnInit, DoCheck {
     title: 'Ticker Viewer';
     entities = null;
 
     constructor(private tickerService: TickerService) {
         let that = this;
-        tickerService.read().then((result: Response) => {
-            let entities: Entity[] = result.json();
-            that.entities = entities;
-            tickerService.resolve(entities);
+        tickerService.read().subscribe(response => {
+            that.entities = response;
+            tickerService.resolve(response);
         });
+    }
+
+    ngDoCheck(): void {
+
     }
 
     ngOnInit(): void {

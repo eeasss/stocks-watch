@@ -3,6 +3,10 @@
 
 <div class='container' *ngFor='let entity of entities'>
 	<div> {{ entity.name }} </div>
-	<kendo-grid [data]="entity.assets" width="400" item-width="120">
+	<kendo-grid [data]="entity.assets">
+		<kendo-grid-column field="name"></kendo-grid-column>
+		<kendo-grid-column field="quantity"></kendo-grid-column>
+		<kendo-grid-column field="price"></kendo-grid-column>
+		<kendo-grid-column field="value"></kendo-grid-column>
 	</kendo-grid>
 </div>

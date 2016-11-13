@@ -6,8 +6,7 @@ import { QuoteService } from './quote.service';
 import { ResultsService } from'./results.service';
 import { CurrencyService } from './currency.service';
 import { Entity } from './models/entity';
-
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable'
 
 @Injectable()
 export class TickerService {
@@ -15,13 +14,12 @@ export class TickerService {
 
     }
 
-    read(): Promise<Object> {
-        return this.http.get('api/tickers').toPromise();
+    read(): Observable<any> {
+        return this.http.get('api/tickers').map((res: Response) => res.json);
     }
 
-    resolve(entities: Entity[]) {
+    resolve(entities: Observable<Entity>) {
         const CALCULATE = 'C';
-
         entities.forEach(entity => {
             switch (entity.type) {
                 case CALCULATE:
@@ -36,13 +34,11 @@ export class TickerService {
         let currency = entity.currency;
         let that = this;
         assets.forEach((asset, index) => {
-            that.quote
-                .read(asset.name)
-                .then((quote:Response) => {
-                    asset.price = parseFloat(quote.json().price);
-                    let converted = that.currency.resolve(currency, asset.price);
-                    asset.value = (converted * asset.quantity).toFixed(2);
-                });
+            that.quote.read(asset.name).subscribe(quote => {
+                asset.price = parseFloat(quote.json().price);
+                let converted = that.currency.resolve(currency, asset.price);
+                asset.value = (converted * asset.quantity).toFixed(2);
+            });
         });
 
     }
