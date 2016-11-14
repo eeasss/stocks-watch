@@ -6,11 +6,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
-import { TotalViewerComponent } from './total-viewer.component';
 
-import { NotificationService } from './notification.service';
 import { QuoteService } from './quote.service';
-import { ResultsService } from './results.service';
 import { TickerService } from './ticker.service';
 import { CurrencyService } from './currency.service';
 import { CategoriesService } from './categories.service';
@@ -23,20 +20,16 @@ import { CategoriesService } from './categories.service';
     ],
     declarations: [
         AppComponent,
-        TickerViewerComponent,
-        TotalViewerComponent
+        TickerViewerComponent
     ],
     bootstrap: [
         AppComponent
     ],
     exports: [
-        TickerViewerComponent,
-        TotalViewerComponent
+        TickerViewerComponent
     ],
     providers: [
-        NotificationService,
         QuoteService,
-        ResultsService,
         TickerService,
         CurrencyService,
         CategoriesService
