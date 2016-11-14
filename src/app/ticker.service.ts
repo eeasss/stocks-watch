@@ -3,19 +3,18 @@ import { Http } from '@angular/http';
 import { Response } from '@angular/http';
 
 import { QuoteService } from './quote.service';
-import { ResultsService } from'./results.service';
 import { CurrencyService } from './currency.service';
 import { Entity } from './models/entity';
 import { Observable } from 'rxjs/Observable'
 
 @Injectable()
 export class TickerService {
-    constructor(private http: Http, private quote: QuoteService, private currency: CurrencyService, private results: ResultsService) {
+    constructor(private http: Http, private quote: QuoteService, private currency: CurrencyService) {
 
     }
 
     read(): Observable<any> {
-        return this.http.get('api/tickers').map((res: Response) => res.json);
+        return this.http.get('api/tickers').map((res: Response) => res.json());
     }
 
     resolve(entities: Observable<Entity>) {
@@ -35,9 +34,8 @@ export class TickerService {
         let that = this;
         assets.forEach((asset, index) => {
             that.quote.read(asset.name).subscribe(quote => {
-                asset.price = parseFloat(quote.json().price);
-                let converted = that.currency.resolve(currency, asset.price);
-                asset.value = (converted * asset.quantity).toFixed(2);
+                asset.price = parseFloat(quote.price);
+                asset.value = (asset.price * asset.quantity).toFixed(2);
             });
         });
 

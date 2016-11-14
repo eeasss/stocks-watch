@@ -1,6 +1,5 @@
 <!--<span *ngIf='!entities'>Loading data...</span>-->
 
-
 <div class='container' *ngFor='let entity of entities'>
 	<div> {{ entity.name }} </div>
 	<kendo-grid [data]="entity.assets">

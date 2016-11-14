@@ -16,10 +16,14 @@ export class TickerViewerComponent implements OnInit, DoCheck {
     entities = null;
 
     constructor(private tickerService: TickerService) {
+
+    }
+
+    ngOnInit(): void {
         let that = this;
-        tickerService.read().subscribe(response => {
+        this.tickerService.read().subscribe(response => {
             that.entities = response;
-            tickerService.resolve(response);
+            this.tickerService.resolve(response);
         });
     }
 
@@ -27,8 +31,5 @@ export class TickerViewerComponent implements OnInit, DoCheck {
 
     }
 
-    ngOnInit(): void {
-
-    }
 };
 
