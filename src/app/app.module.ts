@@ -12,6 +12,7 @@ import { TickerService } from './ticker.service';
 import { CurrencyService } from './currency.service';
 import { CategoriesService } from './categories.service';
 import { CategoryPIeComponent } from './category-pie/category-pie.component';
+import { PerformanceByAllocationComponent } from './performance-by-allocation/performance-by-allocation.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { CategoryPIeComponent } from './category-pie/category-pie.component';
     declarations: [
         AppComponent,
         TickerViewerComponent,
-        CategoryPIeComponent
+        CategoryPIeComponent,
+        PerformanceByAllocationComponent
     ],
     bootstrap: [
         AppComponent
