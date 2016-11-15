@@ -11,6 +11,7 @@ import { QuoteService } from './quote.service';
 import { TickerService } from './ticker.service';
 import { CurrencyService } from './currency.service';
 import { CategoriesService } from './categories.service';
+import { CategoryPIeComponent } from './category-pie/category-pie.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { CategoriesService } from './categories.service';
     ],
     declarations: [
         AppComponent,
-        TickerViewerComponent
+        TickerViewerComponent,
+        CategoryPIeComponent
     ],
     bootstrap: [
         AppComponent
