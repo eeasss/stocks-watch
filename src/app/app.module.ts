@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './app.component';
-import { TickerViewerComponent } from  './ticker-viewer.component';
+import { TickerViewerComponent } from  './ticker-viewer/ticker-viewer.component';
 import { CategoryPIeComponent } from './category-pie/category-pie.component';
 import { PerformanceByAllocationComponent } from './performance-by-allocation/performance-by-allocation.component';
 
