@@ -6,13 +6,14 @@ import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer.component';
+import { CategoryPIeComponent } from './category-pie/category-pie.component';
+import { PerformanceByAllocationComponent } from './performance-by-allocation/performance-by-allocation.component';
 
 import { QuoteService } from './quote.service';
 import { TickerService } from './ticker.service';
 import { CurrencyService } from './currency.service';
 import { CategoriesService } from './categories.service';
-import { CategoryPIeComponent } from './category-pie/category-pie.component';
-import { PerformanceByAllocationComponent } from './performance-by-allocation/performance-by-allocation.component';
+
 
 @NgModule({
     imports: [

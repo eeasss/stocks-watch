@@ -5,7 +5,7 @@ import { Response } from '@angular/http';
 import { QuoteService } from './quote.service';
 import { CurrencyService } from './currency.service';
 import { Entity } from './models/entity';
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class TickerService {
@@ -30,7 +30,6 @@ export class TickerService {
 
     private calculate(entity: Entity) {
         let assets = entity.assets;
-        let currency = entity.currency;
         let that = this;
         assets.forEach((asset, index) => {
             that.quote.read(asset.name).subscribe(quote => {

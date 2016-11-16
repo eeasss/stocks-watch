@@ -1,9 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { Response } from '@angular/http';
 import { TickerService } from './ticker.service';
-import { Entity } from './models/entity';
-
-import { Observable } from 'rxjs/Observable'
 
 @Component({
     selector: 'ticker-viewer',
