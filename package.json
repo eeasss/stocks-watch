@@ -4,6 +4,9 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng serve --aot --proxy-config proxy.conf.json",
+    "start:prod": "ng serve --prod --aot --proxy-config proxy.conf.json",
+    "build": "ng build --aot",
+    "build:prod": "ng build --prod --aot",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
