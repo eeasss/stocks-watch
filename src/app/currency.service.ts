@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-Injectable()
+Injectable();
 export class CurrencyService {
     resolve(currencyName: string, price: number): number {
         let result = 0;

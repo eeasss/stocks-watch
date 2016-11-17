@@ -28,4 +28,3 @@ export class TickerViewerComponent implements OnInit, DoCheck {
     }
 
 };
-

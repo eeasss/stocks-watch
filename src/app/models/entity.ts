@@ -4,5 +4,5 @@ export class Entity {
     public assets: Asset[];
     public currency: string;
     public type: string;
-    public name: string
+    public name: string;
 }
