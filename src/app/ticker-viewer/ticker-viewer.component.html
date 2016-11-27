@@ -1,11 +1,14 @@
 <!--<span *ngIf='!entities'>Loading data...</span>-->
-
 <div class='container' *ngFor='let entity of entities'>
 	<div> {{ entity.name }} </div>
 	<kendo-grid [data]="entity.assets">
 		<kendo-grid-column field="name"></kendo-grid-column>
 		<kendo-grid-column field="quantity"></kendo-grid-column>
 		<kendo-grid-column field="price"></kendo-grid-column>
-		<kendo-grid-column field="value"></kendo-grid-column>
+		<kendo-grid-column field="value">
+			<template kendoFooterTemplate let-column>
+				Total: {{ totals[entity.name] }} $
+			</template>
+		</kendo-grid-column>
 	</kendo-grid>
 </div>
