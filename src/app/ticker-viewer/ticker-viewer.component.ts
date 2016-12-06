@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TickerService } from './../ticker.service';
 import{ aggregateBy } from '@progress/kendo-data-query';
-import { Entity } from './../models/entity'
+import { Entity } from './../models/entity';
 
 @Component({
     selector: 'ticker-viewer',
@@ -24,16 +24,15 @@ export class TickerViewerComponent implements OnInit {
             that.entities = response;
             this.InitTotals();
 
-            var notifier = this.tickerService.resolve(this.entities);
+            let notifier = this.tickerService.resolve(this.entities);
             notifier.subscribe(entityName => {
-                var entity = this.entities.find(e => e.name === entityName);
-
+                let entity = this.entities.find(e => e.name === entityName);
                 let sumAggregate = aggregateBy(entity.assets, [{
-                    aggregate: "sum", field: "value"
+                    aggregate: 'sum', field: 'value'
                 }]);
 
                 this.totals[entity.name] = (sumAggregate as any).value.sum;
-            })
+            });
         });
     }
 

@@ -21,7 +21,7 @@ export class TickerService {
 
     resolve(entities: Entity[]): EventEmitter<any> {
         const CALCULATE = 'C';
-        var notifier = new EventEmitter<any>();
+        let notifier = new EventEmitter<any>();
 
         entities.forEach(entity => {
             switch (entity.type) {
@@ -43,7 +43,7 @@ export class TickerService {
                 asset.price = parseFloat(quote.price);
                 asset.value = (asset.price * asset.quantity);
 
-                if (idx == assets.length - 1) {
+                if (idx === assets.length - 1) {
                     notifier.emit(entity.name);
                 }
             });
