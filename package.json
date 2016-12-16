@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^2.1.0",
     "@angular/platform-browser-dynamic": "^2.1.0",
     "@angular/router": "~3.1.0",
+    "@progress/kendo-angular-dropdowns": "^0.20.1",
     "@progress/kendo-angular-grid": "^0.6.0",
     "@progress/kendo-data-query": "^0.1.7",
     "@telerik/kendo-theme-default": "^1.30.0",
