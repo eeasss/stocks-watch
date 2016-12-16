@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { GridModule } from '@progress/kendo-angular-grid';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 import { AppComponent } from './app.component';
 import { TickerViewerComponent } from  './ticker-viewer/ticker-viewer.component';
@@ -19,6 +20,7 @@ import { CategoriesService } from './categories.service';
     imports: [
         BrowserModule,
         GridModule,
+        DropDownsModule,
         HttpModule
     ],
     declarations: [
