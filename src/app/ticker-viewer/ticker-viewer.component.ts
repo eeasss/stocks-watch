@@ -37,7 +37,7 @@ export class TickerViewerComponent implements OnInit {
     }
 
     private InitTotals(): void {
-        this.entities.forEach(e => this.totals[e.name] = 0 );
+        this.entities.forEach(e => this.totals[e.name] = 0);
     }
 
 };
